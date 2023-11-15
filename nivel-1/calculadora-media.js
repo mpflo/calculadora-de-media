@@ -1,5 +1,7 @@
 const input = require('readline-sync')
 
+let qntdAlunosAvaliados
+
 let nome = input.question('Qual e o nome da aluna avaliada? ')
 let qtdNotas = Number(input.question('Quantas notas vao ser calculadas? '))
 
