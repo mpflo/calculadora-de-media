@@ -1,12 +1,12 @@
-const input = require('readline-sync')
+const input = require('readline-sync');
 
-let qntdAlunosAvaliados = Number(input.question('Quantos alunes serao avaliades? '))
+let qtdAlunosAvaliados = Number(input.question('Quantos alunes serao avaliades? '))
 let qtdNotas = Number(input.question('Quantas notas vao ser calculadas? '))
 
 let alunos = []
 
-// coletando dados
-for (let numAluno = 1; numAluno <= qntdAlunosAvaliados; numAluno++) {
+// coletando média des alunes
+for (let numAluno = 1; numAluno <= qtdAlunosAvaliados; numAluno++) {
     let nome = input.question(`Qual e o nome da aluna ${numAluno} avaliada? `)
     const aluno = {
         nome: nome,
@@ -29,7 +29,7 @@ for (let numAluno = 1; numAluno <= qntdAlunosAvaliados; numAluno++) {
 
 
 // exibindo resultados | dica: poderia ser mais legível com for of
-for (let indexAluno = 0; indexAluno < qntdAlunosAvaliados; indexAluno++) {
+for (let indexAluno = 0; indexAluno < qtdAlunosAvaliados; indexAluno++) {
     const aluno = alunos[indexAluno];
 
     console.log(`${aluno.nome} tirou ${aluno.media} nesse semestre.`)
