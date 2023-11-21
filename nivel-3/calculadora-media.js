@@ -1,47 +1,57 @@
 const input = require('readline-sync');
 
-let qtdAlunosAvaliados = Number(input.question('Quantos alunes serao avaliades? '))
-let qtdNotas = Number(input.question('Quantas notas vao ser calculadas? '))
+let qtdMaterias = Number(input.question('Quantas materias vao ser avaliadas? '))
 
-let alunos = []
+// coletando os nomes das matérias
+let materias = []
+for (let numMateria = 1; numMateria <= qtdMaterias; numMateria++) {
+    let nomeMateria = input.question(`Qual e o nome da ${numMateria} materia? `)
+
+    materias.push(nomeMateria) // empurrando para o final da lista
+}
+
+let qtdNotas = Number(input.question('Quantas notas vao ser calculadas? '))
+let qtdAlunosAvaliados = Number(input.question('Quantos alunes serao avaliades? '))
+
 
 // coletando média des alunes
+let alunos = []
 for (let numAluno = 1; numAluno <= qtdAlunosAvaliados; numAluno++) {
     let nome = input.question(`Qual e o nome da aluna ${numAluno} avaliada? `)
     const aluno = {
         nome: nome,
-        media: 0
-    }
-    
-    // Criando uma variável neutra para a soma das notas
-    let somatorio = 0
+    }    
 
-    for (let numProva = 1; numProva <= qtdNotas; numProva++) {
-        let nota = Number(input.question(`Digite a nota ${numProva}: `))
-        somatorio = somatorio + nota
+    for (let indexMateria = 0; indexMateria < qtdMaterias; indexMateria++) {
+        const materia = materias[indexMateria]
+
+        // Criando uma variável neutra para a soma das notas
+        let somatorio = 0
+
+        for (let numProva = 1; numProva <= qtdNotas; numProva++) {
+            let nota = Number(input.question(`Digite a nota ${numProva} de ${materia}: `))
+            somatorio = somatorio + nota
+        }
+
+        // Dividindo essa nota 
+        let media = (somatorio / qtdNotas).toFixed(2) // deixa com duas casas decimais
+        
+        if (media >= 7) {
+            aluno[materia] = `Aprovade ${media}`
+        } else if (media >= 5) {
+            aluno[materia] = `Recuperação ${media}`
+        } else {
+            aluno[materia] = `Reprovade ${media}`
+        }
     }
 
-    // Dividindo essa nota 
-    aluno.media = (somatorio / qtdNotas).toFixed(2) // deixa com duas casas decimais
+    alunos.push(aluno)
     
-    alunos.push(aluno) // empurrando para o final da lista
 }
 
 
-// exibindo resultados | dica: poderia ser mais legível com for of
-for (let indexAluno = 0; indexAluno < qtdAlunosAvaliados; indexAluno++) {
-    const aluno = alunos[indexAluno];
+// exibindo resultados 
 
-    console.log(`${aluno.nome} tirou ${aluno.media} nesse semestre.`)
-
-    if (aluno.media >= 7) {
-        console.log(`${aluno.nome} foi aprovade.`)
-    } else if (aluno.media >= 5) {
-        console.log(`${aluno.nome} está de recuperação.`)
-    } else {
-        console.log(`${aluno.nome} foi reprovade.`)
-    }
-}
-
+console.table(alunos)
 
 
